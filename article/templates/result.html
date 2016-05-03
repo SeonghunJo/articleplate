@@ -1,0 +1,50 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>ARTICLEPLATE</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap-3.3.6-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'cover.css' %}" rel="stylesheet">
+
+    </head>
+    <body>
+        <div class="page-header">
+            <h1> {{ article.title }} <small> {{ article.url }} </small></h1>
+        </div>
+        
+        {{ article.text }}
+        <img src={{ article.top_image }} />
+        
+        <div>
+            <p>Images</p>
+        {% for imageURL in article.images %}
+            <li>{{ imageURL }}</li>
+        {% endfor %}
+        </div>
+        <div>
+            <p>Meta Data</p>
+        {% for textlink in article.meta_data %}
+            <li>{{ textlink }}</li>
+        {% endfor %}
+        </div>
+        <div>
+            <p>Meta Keywords</p>
+        {% for textlink in article.meta_keywords %}
+            <li>{{ textlink }}</li>
+        {% endfor %}
+        </div>
+    </body>
+</html>

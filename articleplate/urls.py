@@ -18,4 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', 'article.views.index'),
+    url(r'^article/', 'article.views.result'),
+    url(r'^cook/$', 'article.views.cook'),
 ]
