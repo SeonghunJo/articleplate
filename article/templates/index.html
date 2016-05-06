@@ -51,7 +51,8 @@
             <h1 class="cover-heading">Cook your page.</h1>
             <p class="lead"></p>
             <p class="lead">
-            <form method="POST" action="/cook/">{% csrf_token %}
+            <form method="POST" action="/cook/">
+            {% csrf_token %}
               <div class="input-group">
               <input type="text" class="form-control" name="url" placeholder="Blog or article urls here..">
               <span class="input-group-btn">

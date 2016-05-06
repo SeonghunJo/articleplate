@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 
 from newspaper import Article
 
+from article.models import Plate
+
 #/
 def index(request):
     context = {}
@@ -17,8 +19,8 @@ def cook(request):
         print("GET")
     
     url = request.POST.get('url')
-    if(url is None or url == ''):
-        return HttpResponseRedirect(article)
+    #if(url is None or url == ''):
+    #    return HttpResponseRedirect(article)
     
     article = parse(url, 'ko')
     
@@ -35,4 +37,17 @@ def parse(article_url, lang_code):
     article.download()
     article.parse()
     
+    addDatabase(article)
+    
     return article
+
+def addDatabase(article):
+    print(article.url)
+    print(article.title)
+    
+    # TODO : 입력되는 요소들 NULL 처리
+
+    model = Plate(url=article.url, title=article.title, text=article.text, top_image=article.top_image, imagelinks=article.images).save()
+    
+    print model.url
+    return
