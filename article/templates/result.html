@@ -25,26 +25,32 @@
             <h1> {{ article.title }} <small> {{ article.url }} </small></h1>
         </div>
         
-        {{ article.text }}
-        <img src={{ article.top_image }} />
         
-        <div>
-            <p>Images</p>
-        {% for imageURL in article.images %}
-            <li>{{ imageURL }}</li>
-        {% endfor %}
+        <div class="container">
+            <img class="img-responsive" src ="{{ article.top_image }}" alt="top_image" />
+            
+            <div class="row">
+                {{ article.text }}
+            </div>
+        </div>
+        <div class="container">
+            <h5>Images</h5>
+            <div class="row">
+            {% for imageURL in article.images %}    
+                <div class="col-xs-6 col-md-3">
+                    <a href="{{ imageURL }}" class="thumbnail">
+                    <img src="{{ imageURL }}" alt="{{ imageURL }}">
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
         </div>
         <div>
             <p>Meta Data</p>
-        {% for textlink in article.meta_data %}
-            <li>{{ textlink }}</li>
+        {% for key in article.meta_data %}
+            <li>{{ key }} </li>
         {% endfor %}
         </div>
-        <div>
-            <p>Meta Keywords</p>
-        {% for textlink in article.meta_keywords %}
-            <li>{{ textlink }}</li>
-        {% endfor %}
-        </div>
+
     </body>
 </html>

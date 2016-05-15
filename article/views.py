@@ -23,6 +23,7 @@ def cook(request):
     #    return HttpResponseRedirect(article)
     
     article = parse(url, 'ko')
+    insertDatabase(article)
     
     return render(request, 'result.html', {'article':article} )
     #return HttpResponseRedirect('/result', context)
@@ -37,17 +38,18 @@ def parse(article_url, lang_code):
     article.download()
     article.parse()
     
-    addDatabase(article)
-    
     return article
 
-def addDatabase(article):
-    print(article.url)
-    print(article.title)
+def insertDatabase(article):
+    doc = Plate(url=article.url)
+    if(article.title is not None):
+        doc.title = article.title
+    if(article.text is not None):
+        doc.text = article.text
+    if(article.top_image is not None):
+        doc.top_image = article.top_image
+    if(article.images is not None):
+        doc.images = article.images
     
-    # TODO : 입력되는 요소들 NULL 처리
-
-    model = Plate(url=article.url, title=article.title, text=article.text, top_image=article.top_image, imagelinks=article.images).save()
-    
-    print model.url
+    doc.save()
     return

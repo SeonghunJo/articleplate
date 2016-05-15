@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 
 from mongoengine import *
-
+import datetime
 """
 from mongoengine import *
 
@@ -32,12 +32,12 @@ class Poll(Document):
     ],
 }
 """
-
-# Create your models here.
+# http://docs.mongoengine.org/guide/mongomock.html
 class Plate(Document):
-    url = URLField()
-    title = StringField()
-    text = StringField()
-    top_image = URLField(default='')
-    imagelinks = ListField(URLField(), default=list)
-    created_time = DateTimeField(default=datetime.now)
+    url = URLField(default='')
+    #parse_url = URLField(default='')
+    title = StringField(default='')
+    text = StringField(default='')
+    top_image = StringField(default='')
+    images = ListField(StringField(), default=list)
+    created_time = DateTimeField(default=datetime.datetime.now)
