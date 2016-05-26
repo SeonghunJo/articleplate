@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from article import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', 'article.views.index'),
-    url(r'^article/', 'article.views.result'),
-    url(r'^cook/$', 'article.views.cook'),
+    url(r'^$', views.index, name='index'),
+    url(r'^article/', views.result, name='result'),
+    url(r'^cook/$', views.cook, name='cook'),
 ]

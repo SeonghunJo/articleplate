@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from newspaper import Article
 
 from article.models import Plate
+from .sitefilter import SiteFilter
 
 #/
 def index(request):
@@ -23,6 +24,13 @@ def cook(request):
     #    return HttpResponseRedirect(article)
     
     article = parse(url, 'ko')
+    
+    filter = SiteFilter(article.url, article.clean_doc)
+    origin_url = filter.get_real_url()
+    
+    if (origin_url != article.url):
+        article = parse(origin_url, 'ko')
+        
     insertDatabase(article)
     
     return render(request, 'result.html', {'article':article} )
@@ -48,7 +56,7 @@ def insertDatabase(article):
         doc.text = article.text
     if(article.top_image is not None):
         doc.top_image = article.top_image
-    if(article.images is not None):
+    if(article.images is not None and article.images is list):
         doc.images = article.images
     
     doc.save()
